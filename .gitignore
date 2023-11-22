@@ -1,0 +1,8 @@
+## macOS bullsh**
+.DS_Store
+
+## Xcode user settings
+xcuserdata/
+
+## The Private Stuff
+LabradoriteFrontend/
