@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7851E8482B0CAC29003C0106 /* Labradorite.docc in Sources */ = {isa = PBXBuildFile; fileRef = 7851E8472B0CAC29003C0106 /* Labradorite.docc */; };
+		7851E8492B0CAC29003C0106 /* Labradorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 7851E8462B0CAC29003C0106 /* Labradorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		786628882B0DE3E500602B52 /* IntelMacDeviceIdentifiers.h in Headers */ = {isa = PBXBuildFile; fileRef = 786628872B0DE3E500602B52 /* IntelMacDeviceIdentifiers.h */; };
+		786BC89A2B0D3C180054156F /* LabradoriteFrontendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC8992B0D3C180054156F /* LabradoriteFrontendApp.swift */; };
+		786BC89C2B0D3C180054156F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC89B2B0D3C180054156F /* ContentView.swift */; };
+		786BC89E2B0D3C1A0054156F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 786BC89D2B0D3C1A0054156F /* Assets.xcassets */; };
+		786BC8A22B0D3C1A0054156F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 786BC8A12B0D3C1A0054156F /* Preview Assets.xcassets */; };
+		786BC8A92B0D40330054156F /* Labradorite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7851E8432B0CAC29003C0106 /* Labradorite.framework */; };
+		786BC8AA2B0D40330054156F /* Labradorite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7851E8432B0CAC29003C0106 /* Labradorite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		78B7B39E2B0CAE250097D20C /* Labradorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B7B39D2B0CAE250097D20C /* Labradorite.m */; };
+		78BE181B2B0D5EA700C38209 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F1CA092B0D5D3500F59FE2 /* IOKit.framework */; platformFilters = (ios, macos, tvos, xros, ); };
+		78F1CA112B0D5DC600F59FE2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F1CA0B2B0D5D4600F59FE2 /* CoreFoundation.framework */; };
+		78F1CA122B0D5DCA00F59FE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F1CA0D2B0D5D4B00F59FE2 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		786BC8AB2B0D40330054156F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7851E83A2B0CAC29003C0106 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7851E8422B0CAC29003C0106;
+			remoteInfo = Labradorite;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		786BC8AD2B0D40330054156F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				786BC8AA2B0D40330054156F /* Labradorite.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7851E8432B0CAC29003C0106 /* Labradorite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Labradorite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7851E8462B0CAC29003C0106 /* Labradorite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Labradorite.h; sourceTree = "<group>"; };
+		7851E8472B0CAC29003C0106 /* Labradorite.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Labradorite.docc; sourceTree = "<group>"; };
+		786628872B0DE3E500602B52 /* IntelMacDeviceIdentifiers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelMacDeviceIdentifiers.h; sourceTree = "<group>"; };
+		786BC8972B0D3C180054156F /* LabradoriteFrontend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LabradoriteFrontend.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		786BC8992B0D3C180054156F /* LabradoriteFrontendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabradoriteFrontendApp.swift; sourceTree = "<group>"; };
+		786BC89B2B0D3C180054156F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		786BC89D2B0D3C1A0054156F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		786BC89F2B0D3C1A0054156F /* LabradoriteFrontend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LabradoriteFrontend.entitlements; sourceTree = "<group>"; };
+		786BC8A12B0D3C1A0054156F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		78B7B39D2B0CAE250097D20C /* Labradorite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Labradorite.m; sourceTree = "<group>"; };
+		78F1CA092B0D5D3500F59FE2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator17.2.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		78F1CA0B2B0D5D4600F59FE2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS17.2.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		78F1CA0D2B0D5D4B00F59FE2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS17.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		78F1CA0F2B0D5D9E00F59FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7851E8402B0CAC29003C0106 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78F1CA112B0D5DC600F59FE2 /* CoreFoundation.framework in Frameworks */,
+				78F1CA122B0D5DCA00F59FE2 /* Foundation.framework in Frameworks */,
+				78BE181B2B0D5EA700C38209 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		786BC8942B0D3C180054156F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				786BC8A92B0D40330054156F /* Labradorite.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7851E8392B0CAC29003C0106 = {
+			isa = PBXGroup;
+			children = (
+				7851E8452B0CAC29003C0106 /* Labradorite */,
+				786BC8982B0D3C180054156F /* LabradoriteFrontend */,
+				7851E8442B0CAC29003C0106 /* Products */,
+				786BC8A82B0D40330054156F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7851E8442B0CAC29003C0106 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7851E8432B0CAC29003C0106 /* Labradorite.framework */,
+				786BC8972B0D3C180054156F /* LabradoriteFrontend.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7851E8452B0CAC29003C0106 /* Labradorite */ = {
+			isa = PBXGroup;
+			children = (
+				78B7B39D2B0CAE250097D20C /* Labradorite.m */,
+				7851E8462B0CAC29003C0106 /* Labradorite.h */,
+				7851E8472B0CAC29003C0106 /* Labradorite.docc */,
+				786628872B0DE3E500602B52 /* IntelMacDeviceIdentifiers.h */,
+			);
+			path = Labradorite;
+			sourceTree = "<group>";
+		};
+		786BC8982B0D3C180054156F /* LabradoriteFrontend */ = {
+			isa = PBXGroup;
+			children = (
+				78F1CA0F2B0D5D9E00F59FE2 /* Info.plist */,
+				786BC8992B0D3C180054156F /* LabradoriteFrontendApp.swift */,
+				786BC89B2B0D3C180054156F /* ContentView.swift */,
+				786BC89D2B0D3C1A0054156F /* Assets.xcassets */,
+				786BC89F2B0D3C1A0054156F /* LabradoriteFrontend.entitlements */,
+				786BC8A02B0D3C1A0054156F /* Preview Content */,
+			);
+			path = LabradoriteFrontend;
+			sourceTree = "<group>";
+		};
+		786BC8A02B0D3C1A0054156F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				786BC8A12B0D3C1A0054156F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		786BC8A82B0D40330054156F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				78F1CA0D2B0D5D4B00F59FE2 /* Foundation.framework */,
+				78F1CA0B2B0D5D4600F59FE2 /* CoreFoundation.framework */,
+				78F1CA092B0D5D3500F59FE2 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7851E83E2B0CAC29003C0106 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				786628882B0DE3E500602B52 /* IntelMacDeviceIdentifiers.h in Headers */,
+				7851E8492B0CAC29003C0106 /* Labradorite.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7851E8422B0CAC29003C0106 /* Labradorite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7851E84C2B0CAC29003C0106 /* Build configuration list for PBXNativeTarget "Labradorite" */;
+			buildPhases = (
+				7851E83E2B0CAC29003C0106 /* Headers */,
+				7851E83F2B0CAC29003C0106 /* Sources */,
+				7851E8402B0CAC29003C0106 /* Frameworks */,
+				7851E8412B0CAC29003C0106 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Labradorite;
+			productName = Labradorite;
+			productReference = 7851E8432B0CAC29003C0106 /* Labradorite.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		786BC8962B0D3C180054156F /* LabradoriteFrontend */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 786BC8A52B0D3C1A0054156F /* Build configuration list for PBXNativeTarget "LabradoriteFrontend" */;
+			buildPhases = (
+				786BC8932B0D3C180054156F /* Sources */,
+				786BC8942B0D3C180054156F /* Frameworks */,
+				786BC8952B0D3C180054156F /* Resources */,
+				786BC8AD2B0D40330054156F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				786BC8AC2B0D40330054156F /* PBXTargetDependency */,
+			);
+			name = LabradoriteFrontend;
+			productName = LabradoriteFrontend;
+			productReference = 786BC8972B0D3C180054156F /* LabradoriteFrontend.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7851E83A2B0CAC29003C0106 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					7851E8422B0CAC29003C0106 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+					786BC8962B0D3C180054156F = {
+						CreatedOnToolsVersion = 15.1;
+					};
+				};
+			};
+			buildConfigurationList = 7851E83D2B0CAC29003C0106 /* Build configuration list for PBXProject "Labradorite" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7851E8392B0CAC29003C0106;
+			productRefGroup = 7851E8442B0CAC29003C0106 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7851E8422B0CAC29003C0106 /* Labradorite */,
+				786BC8962B0D3C180054156F /* LabradoriteFrontend */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7851E8412B0CAC29003C0106 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		786BC8952B0D3C180054156F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				786BC8A22B0D3C1A0054156F /* Preview Assets.xcassets in Resources */,
+				786BC89E2B0D3C1A0054156F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7851E83F2B0CAC29003C0106 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7851E8482B0CAC29003C0106 /* Labradorite.docc in Sources */,
+				78B7B39E2B0CAE250097D20C /* Labradorite.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		786BC8932B0D3C180054156F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				786BC89C2B0D3C180054156F /* ContentView.swift in Sources */,
+				786BC89A2B0D3C180054156F /* LabradoriteFrontendApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		786BC8AC2B0D40330054156F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7851E8422B0CAC29003C0106 /* Labradorite */;
+			targetProxy = 786BC8AB2B0D40330054156F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7851E84A2B0CAC29003C0106 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		7851E84B2B0CAC29003C0106 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		7851E84D2B0CAC29003C0106 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FBT742498U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.crystall1ne.Labradorite;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4,7";
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		7851E84E2B0CAC29003C0106 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FBT742498U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.crystall1ne.Labradorite;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4,7";
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		786BC8A32B0D3C1A0054156F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LabradoriteFrontend/LabradoriteFrontend.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LabradoriteFrontend/Preview Content\"";
+				DEVELOPMENT_TEAM = FBT742498U;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = LabradoriteFrontend/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.crystall1ne.LabradoriteFrontend;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,7";
+				TVOS_DEPLOYMENT_TARGET = 15.0;
+			};
+			name = Debug;
+		};
+		786BC8A42B0D3C1A0054156F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LabradoriteFrontend/LabradoriteFrontend.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LabradoriteFrontend/Preview Content\"";
+				DEVELOPMENT_TEAM = FBT742498U;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = LabradoriteFrontend/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.crystall1ne.LabradoriteFrontend;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,7";
+				TVOS_DEPLOYMENT_TARGET = 15.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7851E83D2B0CAC29003C0106 /* Build configuration list for PBXProject "Labradorite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7851E84A2B0CAC29003C0106 /* Debug */,
+				7851E84B2B0CAC29003C0106 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7851E84C2B0CAC29003C0106 /* Build configuration list for PBXNativeTarget "Labradorite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7851E84D2B0CAC29003C0106 /* Debug */,
+				7851E84E2B0CAC29003C0106 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		786BC8A52B0D3C1A0054156F /* Build configuration list for PBXNativeTarget "LabradoriteFrontend" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				786BC8A32B0D3C1A0054156F /* Debug */,
+				786BC8A42B0D3C1A0054156F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7851E83A2B0CAC29003C0106 /* Project object */;
+}
