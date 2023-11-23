@@ -18,7 +18,7 @@
 #import <pwd.h>
 
 #if TARGET_OS_IPHONE
-
+#if !TARGET_OS_WATCH
     #define IO_OBJECT_NULL ((io_object_t)0)
 
     typedef UInt32 IOOptionBits;
@@ -33,7 +33,7 @@
 
     extern io_registry_entry_t IORegistryEntryFromPath(mach_port_t mainPort, io_string_t path);
     extern CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
-
+#endif
 #endif
 
 @interface Labradorite : NSObject

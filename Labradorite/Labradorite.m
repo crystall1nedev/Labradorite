@@ -50,8 +50,10 @@
  */
 +(NSString *) getDeviceModelMain {
         NSString *outName = NULL;
+
+#if !TARGET_OS_WATCH
         BOOL status = FALSE;
-        
+    
         io_registry_entry_t registry = IO_OBJECT_NULL;
         CFDataRef data = NULL;
         CFStringRef string = NULL;
@@ -92,7 +94,8 @@
         if (data != NULL) { CFRelease(data); }
         if (string != NULL) { CFRelease(string); }
         if (end != NULL) { free(end); }
-    
+#endif
+
         return (outName == NULL) ? NULL : outName;
 }
 
