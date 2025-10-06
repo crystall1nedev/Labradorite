@@ -9,10 +9,10 @@ Labradorite is a **work-in-progress** API, ~~hoarding~~ cataloging Apple device 
 ## How do I use it?
 Just send a `GET` request to one of the endpoints on `https://labradorite.crystall1ne.dev`:
 
-`/help` - Return more detailed documentation in `text/plain`.
-`/api/v0/identifier` - Return information on the passed identifier (i.e. iPhone17,2).
-`/api/v0/model` - Return information on the passed model number (i.e. A3084).
-`/api/v0/boardconfig` - Return information on the passed boardconfig (i.e. D94AP).
+`/help` - Return more detailed documentation in `text/plain`.  
+`/api/v0/identifier` - Return information on the passed identifier (i.e. iPhone17,2).  
+`/api/v0/model` - Return information on the passed model number (i.e. A3084).  
+`/api/v0/boardconfig` - Return information on the passed boardconfig (i.e. D94AP).  
 
 ## How do I contribute?
 ### Labradorite's data
