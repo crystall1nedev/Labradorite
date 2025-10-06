@@ -10,12 +10,12 @@ VERSION     := 1.0
 api:
 	echo '[Labradorite v$(VERSION) - API]'
 	cd $(SOURCEDIR)/api; mkdir -p dst; \
-    go build -o dst/labradorite src/*.go 
+    go build -ldflags="-X main.debug=1 -extldflags '-static'" -o dst/labradorite src/*.go 
 
 api-release:
 	echo '[Labradorite v$(VERSION) - API]'
 	cd $(SOURCEDIR)/api; mkdir -p dst; \
-    go build -ldflags="-s -w" -o dst/labradorite src/*.go 
+    go build -ldflags="-s -w -X main.debug=0 -extldflags '-static'" -o dst/labradorite src/*.go 
 
 
 # TODO: Swift framework revival

@@ -7,7 +7,47 @@ import (
 )
 
 // Loads the specified mapping file and returns its contents
-func loadMappingsIntoMemory(mapping string) interface{} {
+func loadMappingsIntoMemory() bool {
+	for dict := range mappings {
+		mappingPath := fmt.Sprintf("mappings/%ss.json", dict)
+		if _, err := os.Stat(mappingPath); os.IsNotExist(err) {
+			// Error: Mapping file is missing
+			// Show in console
+			fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not present! Stopping server...\n", dict)
+			return false
+		}
+
+		fmt.Printf("[Mappings] Loading the %s mapping file from \"%s\"\n", dict, mappingPath)
+
+		mappingJSONRaw, err := loadJSON(fmt.Sprintf("mappings/%ss.json", dict))
+
+		if err != nil {
+			// Error: Mapping file is unloadable
+			// Show in console
+			fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not loadable! Stopping server...\n", dict)
+			return false
+		}
+
+		fmt.Printf("[Mappings] Loaded the %s mapping file, attempting to parse and return\n", dict)
+
+		mappingJSON, ok := mappingJSONRaw.(map[string]interface{})
+		if !ok {
+			// Error: Mapping file couldn't be parsed
+			// Show in console
+			fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not loadable! Stopping server...\n", dict)
+			return false
+		}
+
+		fmt.Printf("[Mappings] Parsed the %s mapping file successfully.\n", dict)
+
+		mappings[dict] = mappingJSON
+	}
+
+	return true
+}
+
+// Loads the specified mapping file and returns its contents
+func loadMappingsIntoMemory_old(mapping string) interface{} {
 	mappingPath := fmt.Sprintf("mappings/%ss.json", mapping)
 	if _, err := os.Stat(mappingPath); os.IsNotExist(err) {
 		// Error: Mapping file is missing
