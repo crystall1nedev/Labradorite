@@ -21,23 +21,23 @@ var mappings = map[string]interface{}{
 
 // Stores device JSONs in memory for better performance
 // TODO: Maybe not duplicate this sh*t three times...
-var boardconfigDevices = map[string]interface{}{}
-var modelDevices = map[string]interface{}{}
-var identifierDevices = map[string]interface{}{}
+var boardconfigDevices  = map[string]interface{}{}
+var modelDevices        = map[string]interface{}{}
+var identifierDevices   = map[string]interface{}{}
 
 // Error messages for the requestor being dumb
-var badEndpoint      = "Specs machine doesn't have that endpoint. Try requesting /help."
-var badMethod        = "Specs machine doesn't allow that method."
-var badRequest       = "Specs machine didn't understand that request."
-var badKey           = "Specs machine couldn't find that property."
+var badEndpoint         = "Specs machine doesn't have that endpoint. Try requesting /help."
+var badMethod           = "Specs machine doesn't allow that method."
+var badRequest          = "Specs machine didn't understand that request."
+var badKey              = "Specs machine couldn't find that property."
 
 // Error messages for the server being dumb
-var badDevice        = "Specs machine couldn't find that device."
-var badDataRead      = "Specs machine encountered some bad data while trying to read files."
-var badDataWrite     = "Specs machine encountered some bad data while trying to write files."
-var badPath          = "Specs machine couldn't find the file it was looking for."
-var badResponse      = "Specs machine couldn't supply the proper response."
-var badNestedParsing = "Specs machine wasn't able to fine-tune. Try boardening your search."
+var badDevice           = "Specs machine couldn't find that device."
+var badDataRead         = "Specs machine encountered some bad data while trying to read files."
+var badDataWrite        = "Specs machine encountered some bad data while trying to write files."
+var badPath             = "Specs machine couldn't find the file it was looking for."
+var badResponse         = "Specs machine couldn't supply the proper response."
+var badNestedParsing    = "Specs machine wasn't able to fine-tune. Try boardening your search."
 
 // Custom response writer to capture status codes.
 type responseWriter struct { http.ResponseWriter; statusCode int }
