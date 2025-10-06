@@ -1,12 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 )
@@ -68,17 +66,6 @@ func extractPathAfter(target string, path string) (id string, subkeys []string, 
 	return "", nil, false
 }
 
-// Loads a JSON file and returns its content as an interface{} for flexible traversal.
-func loadJSON(path string) (interface{}, error) {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-	var result interface{}
-	err = json.Unmarshal(data, &result)
-	return result, err
-}
-
 // Extracts the client's IP address from the request headers or remote address.
 func getClientIP(request *http.Request) string {
 	xForwardedFor := request.Header.Get("X-Forwarded-For")
@@ -108,120 +95,6 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		clientIP := getClientIP(request)
 		log.Printf("%s %s %d %s from %s", request.Method, request.URL.Path, rw.statusCode, duration, clientIP)
 	})
-}
-
-// Reusable function to parse and server the JSON we loaded into memory, and fall back to on-disk JSON if required.
-func serveDevice(writer http.ResponseWriter, request *http.Request, mapping string) {
-	id, subkeys, ok := extractPathAfter(mapping, request.URL.Path)
-	if !ok {
-		// Error: extractPathAfter failed, bad request
-		http.Error(writer, badRequest, http.StatusBadRequest)
-		fmt.Printf("[Request] Unable to parse request \"%s\"\n", request.URL.RequestURI())
-		return
-	}
-
-	var dict map[string]interface{}
-
-	switch mapping {
-	case "boardconfig": dict = boardconfigDevices
-	case "identifier": dict = identifierDevices
-	case "model": dict = modelDevices
-	}
-
-	lookup, ok := dict[id] 
-	if !ok {
-		fmt.Printf("[Request] Couldn't find that device in memory, restarting from on-disk.\n")
-		lookupMap, ok := mappings[mapping].(map[string]interface{})
-		if !ok {
-			http.Error(writer, "", http.StatusInternalServerError)
-			return
-		}
-
-		val, exists := lookupMap[id]
-		if !exists {
-			// Error: Mapping didn't return data for that device
-			http.Error(writer, badDevice, http.StatusNotFound)
-			fmt.Printf("[Request] Unable to find device \"%s\"\n", id)
-			return
-		}
-
-		valStr, ok := val.(string)
-		if !ok {
-			// Error: Unable to convert JSON path into string
-			http.Error(writer, badDataRead, http.StatusInternalServerError)
-			fmt.Printf("[Request] Unable to convert value to string \"%s\"\n", val)
-			return
-		}
-
-		filePath := filepath.Join(valStr)
-
-		fmt.Printf("[Request] Getting ready to serve the %s data from \"%s\"\n", mapping, filePath)
-
-		if _, err := os.Stat(filePath); os.IsNotExist(err) {
-			// Error: Device file is missing
-			http.Error(writer, badPath, http.StatusInternalServerError)
-			fmt.Printf("[Request] Unable to locate \"%s\"\n", filePath)
-			return
-		}
-
-		fmt.Printf("[Request] Found our file at \"%s\", now parsing it.\n", filePath)
-
-		var err error
-		lookup, err = loadJSON(filePath)
-		if err != nil {
-			// Error: Device file is unloadable
-			http.Error(writer, badDataRead, http.StatusInternalServerError)
-			fmt.Printf("[Request] Unable to parse the JSON at \"%s\"\n", filePath)
-			return
-		}
-	}
-
-	jsonResponse := parseDeviceJSON(writer, subkeys, lookup)
-	if jsonResponse == nil { return }
-
-	if !respondToGet(writer, jsonResponse) {
-		http.Error(writer, badResponse, http.StatusInternalServerError)
-		fmt.Printf("[Request] Failed to send a response to the client.\n")
-		return
-	}
-}
-
-// Parses the device JSON - whether ir be from in memory, or on disk.
-func parseDeviceJSON(writer http.ResponseWriter, subkeys []string, data interface{}) []byte {
-	fmt.Printf("[Request] Checking if we need to drill down further\n")
-
-	for _, key := range subkeys {
-		fmt.Printf("[Request] Drilling down farther\n")
-		m, ok := data.(map[string]interface{})
-		if !ok {
-			// Error: Nested parsing failed
-			http.Error(writer, badNestedParsing, http.StatusInternalServerError)
-			fmt.Printf("[Request] Unable to parse the JSON at \"%s\"\n", m)
-			return nil
-		}
-		fmt.Printf("[Request] Attempting to get value for \"%s\"\n", key)
-		val, exists := m[key]
-		if !exists {
-			// Error: The key that was requested doesn't exist
-			http.Error(writer, badKey, http.StatusBadRequest)
-			fmt.Printf("[Request] Unable to find key \"%s\"\n", key)
-			return nil
-		}
-		fmt.Printf("[Request] Value retrieved, continuing.\n")
-		data = val
-	}
-
-	fmt.Printf("[Request] Remarshalling...\n")
-
-	response, err := json.Marshal(data)
-	if err != nil {
-		// Error: Remarshalling failed.
-		http.Error(writer, badDataWrite, http.StatusInternalServerError)
-		fmt.Printf("[Request] Unable to marshal the JSON: \"%s\"\n", err)
-		return nil
-	}
-
-	return response
 }
 
 // Sends the HTTP response and headers to the client.
@@ -281,100 +154,6 @@ func helpHandler(writer http.ResponseWriter, request *http.Request) {
 // ...
 func moo(writer http.ResponseWriter, request *http.Request) { http.Error(writer, "moo", http.StatusTeapot) }
 
-// Loads the specified mapping file and returns its contents
-func loadMappingsIntoMemory(mapping string) interface{} {
-	mappingPath := fmt.Sprintf("mappings/%ss.json", mapping)
-	if _, err := os.Stat(mappingPath); os.IsNotExist(err) {
-		// Error: Mapping file is missing
-		// Show in console
-		fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not present! Stopping server...\n", mapping)
-		os.Exit(1)
-	}
-
-	fmt.Printf("[Mappings] Loading the %s mapping file from \"%s\"\n", mapping, mappingPath)
-
-	mappingJSONRaw, err := loadJSON(fmt.Sprintf("mappings/%ss.json", mapping))
-
-	if err != nil {
-		// Error: Mapping file is unloadable
-		// Show in console
-		fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not loadable! Stopping server...\n", mapping)
-		os.Exit(1)
-
-	}
-
-	fmt.Printf("[Mappings] Loaded the %s mapping file, attempting to parse and return\n", mapping)
-
-	mappingJSON, ok := mappingJSONRaw.(map[string]interface{})
-	if !ok {
-		// Error: Mapping file couldn't be parsed
-		// Show in console
-		fmt.Printf("[Mappings] Mapping file \"mappings/%ss.json\" is not loadable! Stopping server...\n", mapping)
-		os.Exit(1)
-	}
-
-	fmt.Printf("[Mappings] Parsed the %s mapping file successfully.\n", mapping)
-
-	return mappingJSON
-}
-
-func loadDeviceJSONsIntoMemory() bool {
-	// first load boardconfig mapping json
-	// then a for loop:
-	// - load device json for board
-	// - add 
-
-	for dict := range mappings {
-		mapping, ok := mappings[dict].(map[string]interface{})
-		if !ok { return false }
-
-		for key := range mapping {
-			val, exists := mapping[key]
-			if !exists {
-				// Error: Mapping file didn't return data for that device
-				// This is user error (or server outdated), throw 404
-				// Show to the user: "Unable to locate the provided device in database."
-				// Show in console:  ""
-				return false
-			}
-
-			valStr, ok := val.(string)
-			if !ok {
-				return false
-			}
-
-			filePath := filepath.Join(valStr)
-
-			if _, err := os.Stat(filePath); os.IsNotExist(err) {
-				// Error: Device file is missing
-				// This is server error, throw 500
-				// Show to the user: "Unable to find the file we were looking for."
-				// Show in console:  ""
-				return false
-			}
-
-			//fmt.Printf("[Request] Found our file at \"%s\", now parsing it.\n", filePath)
-
-			data, err := loadJSON(filePath)
-			if err != nil {
-				// Error: Device file is unloadable
-				// This is server error, throw 500
-				// Show to the user: "Unable to parse the file we were looking for."
-				// Show in console:  ""
-				return false
-			}
-
-			switch dict {
-				case "boardconfig": boardconfigDevices[key] = data
-				case "model": modelDevices[key] = data
-				case "identifier": identifierDevices[key] = data
-			}
-		}
-	}
-
-	return true
-}
-
 // Kinda self-explanatory.
 func main() {
 	mux := http.NewServeMux()
@@ -389,6 +168,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	// TODO: Some debug path
 	//fmt.Printf("[Initalization] Testing device interface: %s, %s\n", "d94ap", boardconfigDevices["d94ap"])
 	//fmt.Printf("[Initalization] Testing device interface: %s, %s\n", "a3084", modelDevices["a3084"])
 	//fmt.Printf("[Initalization] Testing device interface: %s, %s\n", "iphone17,2", identifierDevices["iphone17,2"])
