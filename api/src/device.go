@@ -73,7 +73,7 @@ func serveDevice(writer http.ResponseWriter, request *http.Request, mapping stri
 		}
 	}
 
-	jsonResponse := parseDeviceJSON(writer, subkeys, lookup)
+	jsonResponse := parseDeviceJSON(writer, request, subkeys, lookup)
 	if jsonResponse == nil { return }
 
 	if !respondToGet(writer, jsonResponse) {

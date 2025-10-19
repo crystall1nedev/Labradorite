@@ -8,10 +8,10 @@ import (
 )
 
 // Parses the device JSON - whether ir be from in memory, or on disk.
-func parseDeviceJSON(writer http.ResponseWriter, subkeys []string, data interface{}) []byte {
+func parseDeviceJSON(writer http.ResponseWriter, request *http.Request, subkeys []string, data interface{}) []byte {
 	fmt.Printf("[Request] Checking if we need to drill down further\n")
 
-	for _, key := range subkeys {
+	for i, key := range subkeys {
 		fmt.Printf("[Request] Drilling down farther\n")
 		m, ok := data.(map[string]interface{})
 		if !ok {
@@ -30,6 +30,22 @@ func parseDeviceJSON(writer http.ResponseWriter, subkeys []string, data interfac
 		}
 		fmt.Printf("[Request] Value retrieved, continuing.\n")
 		data = val
+
+		_, isDictionary := data.(map[string]interface{})
+		if !isDictionary {
+			fmt.Printf("[Request] Can't go any farther as we've hit a non-dictionary item.\n")
+			if i != len(subkeys)-1 {
+				headerValue := request.Header.Get("Labradorite-FailOnSubkeys")
+
+				fmt.Printf("[Request] Non-dictionary item is not at end of requested keys.\n")
+				if headerValue != "true" { 
+					fmt.Printf("[Request] Ignoring error due to header.\n")
+				} else { 
+					http.Error(writer, badKey, http.StatusBadRequest); return nil 
+				}
+			}
+			break
+		}
 	}
 
 	fmt.Printf("[Request] Remarshalling...\n")
