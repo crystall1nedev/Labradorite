@@ -45,6 +45,15 @@ Just send a `GET` request to one of the endpoints on `https://labradorite.crysta
 `/api/v0/model` - Return information on the passed model number (i.e. A3084).  
 `/api/v0/boardconfig` - Return information on the passed boardconfig (i.e. D94AP).  
 
+For running the API server on your own device, you'll need to have one of the following operating systems:
+- **macOS Big Sur 11.0** or later[^1]
+- **iOS or iPadOS 14.0** or later[^1][^2]
+- **tvOS 14.0** or later[^1][^2]
+<!--
+- Linux NEEDS TO BE TESTED
+- Windows NEEDS TO BE TESTED
+-->
+
 <!--
 ### Framework
 copied from old readme, this needs to be updated for the Makefile setup, TODO
@@ -64,8 +73,11 @@ I'm not currently taking contributions for the data available on my server. If y
 know when I will be, hit up the #labradorite channel in [my Discord server](https://discord.crystall1ne.dev).
 
 ### Labradorite's API server
-The server's source code is in `api/src`, as a collection of *.go files. Using Go makes this
-project easy to bringup and fast at its job - a very lightweight handler for jsons.
+1. Clone this repo
+2. Open `Codesigning.example.xcconfig`, make changes, and save it as `Codesigning.xcconfig`.
+3. Open `Labradorite.xcworkspace`
+4. Select `Labradorite-Server`
+5. Build `labradorite-server`!
 
 <!--
 ### Labradorite's framework
@@ -84,3 +96,6 @@ same shit different day, TODO
 [^1]: This list is what I hope to target all the way through. If development hurdles come up, some functionality may be restricted to newer releases that are not listed here.
 [^2]: Due to hardware and software restrictions, bridgeOS will not receive the SwiftUI-based application, and the framework will not feature API fallback functionality found on other platforms. 
 -->
+
+[^1]: Note that the source code should work down to **macOS Mojave 10.14** and **iOS 12**. Both are untested, and unsupported.
+[^2]: Running the API server on iOS or tvOS requires a jailbreak.

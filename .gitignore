@@ -1,1 +1,12 @@
+## macOS bullsh**
 .DS_Store
+
+## Xcode user settings
+xcuserdata/
+Codesigning.xcconfig
+
+## xcodebuild
+build/
+
+## UNRAID things
+.fuse_hidden*
