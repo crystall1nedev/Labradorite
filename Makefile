@@ -4,19 +4,20 @@ SHELL := /bin/bash
 $(VERBOSE).SILENT:
 
 # Prerequisite variables
-SOURCEDIR   := $(shell printf "%q\n" "$(shell pwd)")
-VERSION     := 1.0
+SOURCEDIR   ?= $(shell printf "%q\n" "$(shell pwd)")
+VERSION     ?= 1.0
+
+# Are we building a release or not
+ifndef RELEASE
+CONFIG      ?= "Debug"
+else
+CONFIG      ?= "Release"
+endif
 
 api:
 	echo '[Labradorite v$(VERSION) - API]'
-	cd $(SOURCEDIR)/api; mkdir -p dst; \
-    go build -ldflags="-X main.debug=1 -extldflags '-static'" -o dst/labradorite src/*.go 
-
-api-release:
-	echo '[Labradorite v$(VERSION) - API]'
-	cd $(SOURCEDIR)/api; mkdir -p dst; \
-    go build -ldflags="-s -w -X main.debug=0 -extldflags '-static'" -o dst/labradorite src/*.go 
-
+	cd $(SOURCEDIR); \
+	xcodebuild -workspace Labradorite.xcworkspace -scheme labradorite-server -configuration $(CONFIG) CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO BUILD_DIR=$(SOURCEDIR)/build
 
 # TODO: Swift framework revival
 # swift-framework:
