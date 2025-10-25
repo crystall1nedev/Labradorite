@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:api/Labradorite-Server.xcodeproj">
+      location = "group:framework/Labradorite-Framework.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:framework/Labradorite-Framework.xcodeproj">
+      location = "group:api/Labradorite-Server.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:frontend/Labradorite-Frontend.xcodeproj">
