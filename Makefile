@@ -14,9 +14,12 @@ else
 CONFIG      ?= "Release"
 endif
 
+clean:
+	rm -rf $(SOURCEDIR)/build
+
 api:
 	echo '[Labradorite v$(VERSION) - API]'
-	cd $(SOURCEDIR); \
+	mkdir -p $(SOURCEDIR)/build
 	xcodebuild -workspace Labradorite.xcworkspace -scheme labradorite-server -configuration $(CONFIG) CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO BUILD_DIR=$(SOURCEDIR)/build
 
 # TODO: Swift framework revival

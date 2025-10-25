@@ -10,3 +10,7 @@ build/
 
 ## UNRAID things
 .fuse_hidden*
+
+## Labradorite's other two components
+framework/
+frontend/

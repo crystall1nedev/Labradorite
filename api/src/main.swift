@@ -88,6 +88,7 @@ if !utilities.memory.loadMappingsIntoMemory() {
 	utilities.log("Failed to load mapping jsons into memory! Exiting.")
 	exit(1)
 }
+
 if !utilities.memory.loadDeviceJSONsIntoMemory() {
 	utilities.log("Failed to load device jsons into memory! Exiting.")
 	exit(1)
