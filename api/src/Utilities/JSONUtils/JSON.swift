@@ -23,34 +23,34 @@ class JSON {
 	}
 	
 	func parseDeviceJSON(subkeys: [String], data: Any, headers: [String: String]) -> Data? {
-		utilities.log("[Request] Checking if we need to drill down further")
+		utilities.log("Request", "Checking if we need to drill down further")
 		var current = data
 		
 		for (i, key) in subkeys.enumerated() {
-			utilities.log("[Request] Drilling down farther")
+			utilities.log("Request", "Drilling down farther")
 			guard let dictionary = current as? [String: Any] else {
 				// Nested parsing failed
-				utilities.log("[Request] Unable to parse the JSON at nested level (not a dictionary).")
+				utilities.log("Request", "Unable to parse the JSON at nested level (not a dictionary).")
 				return nil
 			}
-			utilities.log("[Request] Attempting to get value for \"%@\"", key)
+			utilities.log("Request", "Attempting to get value for \(key)")
 			guard let val = dictionary[key] else {
 				// Key not found
-				utilities.log("[Request] Unable to find key \"%@\"", key)
+				utilities.log("Request", "Unable to find key \(key)")
 				return nil
 			}
-			utilities.log("[Request] Value retrieved, continuing.")
+			utilities.log("Request", "Value retrieved, continuing.")
 			current = val
 			
 			if !(current is [String: Any]) {
-				utilities.log("[Request] Can't go any farther as we've hit a non-dictionary item.")
+				utilities.log("Request", "Can't go any farther as we've hit a non-dictionary item.")
 				if i != subkeys.count - 1 {
 					let headerValue = headers["Labradorite-FailOnSubkeys"] ?? ""
-					utilities.log("[Request] Non-dictionary item is not at end of requested keys.")
+					utilities.log("Request", "Non-dictionary item is not at end of requested keys.")
 					if headerValue != "true" {
-						utilities.log("[Request] Ignoring error due to header.")
+						utilities.log("Request", "Ignoring error due to header.")
 					} else {
-						utilities.log("[Request] Header requested strict failure on subkeys.")
+						utilities.log("Request", "Header requested strict failure on subkeys.")
 						return nil
 					}
 				}
@@ -58,11 +58,11 @@ class JSON {
 			}
 		}
 		
-		utilities.log("[Request] Remarshalling...")
+		utilities.log("Request", "Remarshalling...")
 		if let finalData = returnJSONData(from: current) {
 			return finalData
 		} else {
-			utilities.log("[Request] Unable to marshal the JSON")
+			utilities.log("Request", "Unable to marshal the JSON")
 			return nil
 		}
 	}

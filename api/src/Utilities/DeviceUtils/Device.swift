@@ -27,7 +27,7 @@ class Device {
 		
 		let (id, subkeys, ok) = utilities.extractPathAfter(target: usedTarget, path: path)
 		guard ok else {
-			utilities.log("[Request] Unable to parse request \"%@\"", path)
+			utilities.log("Request", "Unable to parse request \(path)")
 			let body = Data(badRequest.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 400, body: body)
 			return
@@ -52,7 +52,7 @@ class Device {
 			}
 		}
 		
-		utilities.log("[Request] Couldn't find that device in memory, restarting from on-disk.")
+		utilities.log("Request", "Couldn't find that device in memory, restarting from on-disk.")
 		guard let lookupMap = mappings[usedTarget] else {
 			let body = Data("".utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 500, body: body)
@@ -60,30 +60,32 @@ class Device {
 		}
 		
 		guard let mappedPathRaw = lookupMap[id] else {
-			utilities.log("[Request] Unable to find device \"%@\"", id)
+			utilities.log("Request", "Unable to find device \(id)")
 			let body = Data(badDevice.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 404, body: body)
 			return
 		}
 		
 		guard let mappedPath = mappedPathRaw as? String else {
-			utilities.log("[Request] Unable to convert value to string \"%@\"", String(describing: mappedPathRaw))
+			utilities.log("Request", "Unable to convert value to string \(String(describing: mappedPathRaw))")
 			let body = Data(badDataRead.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 500, body: body)
 			return
 		}
 		
-		let filePath = mappedPath
-		utilities.log("[Request] Getting ready to serve the %@ data from \"%@\"", usedTarget, filePath)
+		var pathToJson = [utilities.terminal.arguments.dataPath ?? ""]
+		for str in mappedPath.split(separator: "/") { pathToJson.append(String(str)) }
+		let filePath = NSString.path(withComponents: pathToJson)
+		utilities.log("Request", "Getting ready to serve the \(usedTarget) data from \(filePath)")
 		
 		if !FileManager.default.fileExists(atPath: filePath) {
-			utilities.log("[Request] Unable to locate \"%@\"", filePath)
+			utilities.log("Request", "Unable to locate \(filePath)", )
 			let body = Data(badPath.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 500, body: body)
 			return
 		}
 		
-		utilities.log("[Request] Found our file at \"%@\", now parsing it.", filePath)
+		utilities.log("Request", "Found our file at \(filePath), now parsing it.", )
 		do {
 			let loaded = try utilities.json.loadJSON(at: filePath)
 			if let response = utilities.json.parseDeviceJSON(subkeys: subkeys, data: loaded, headers: headers) {
@@ -95,7 +97,7 @@ class Device {
 				return
 			}
 		} catch {
-			utilities.log("[Request] Unable to parse the JSON at \"%@\"", filePath)
+			utilities.log("Request", "Unable to parse the JSON at \(filePath)" )
 			let body = Data(badDataRead.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 500, body: body)
 			return

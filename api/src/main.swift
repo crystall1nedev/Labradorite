@@ -11,20 +11,19 @@ import Network
 let utilities = Utilities()
 
 func welcome() {
-	print("Welcome to the Labradorite API server.")
-	print("Made by Eva with <3 since 2025.")
-	print("")
+	utilities.log("", "Labradorite Server")
+	utilities.log("", "Made by Eva with <3 since 2025.")
+	utilities.log("", "")
 }
 
 func loadIntoMemory() {
-	utilities.log("[Initialization] Loading mappings and device db into memory")
 	if !utilities.device.memory.loadMappingsIntoMemory() {
-		utilities.log("Failed to load mapping jsons into memory! Exiting.")
+		utilities.log("Mappings", "Failed to load mapping jsons into memory! Exiting.")
 		if !utilities.terminal.arguments.safetyOff { exit(1) }
 	}
 
 	if !utilities.device.memory.loadDeviceJSONsIntoMemory() {
-		utilities.log("Failed to load device jsons into memory! Exiting.")
+		utilities.log("Devices", "Failed to load device jsons into memory! Exiting.")
 		if !utilities.terminal.arguments.safetyOff { exit(1) }
 	}
 }
@@ -55,6 +54,8 @@ let badNestedParsing    = "Specs machine wasn't able to fine-tune. Try boardenin
 
 let listener = try NWListener(using: .tcp, on: port)
 
+var running = true
+
 listener.newConnectionHandler = { newConnection in
 	newConnection.start(queue: .global())
 	newConnection.receive(minimumIncompleteLength: 1, maximumLength: 64 * 1024) { (data, _, isComplete, error) in
@@ -69,7 +70,7 @@ listener.newConnectionHandler = { newConnection in
 			return
 		}
 
-		utilities.log("%@ %@ from %@", req.method, req.path, utilities.http.clientIP(from: newConnection))
+		utilities.log("Request", "\(req.method) \(req.path) from \(utilities.http.clientIP(from: newConnection))")
 
 		// Only GET supported
 		if req.method != "GET" {
@@ -102,15 +103,16 @@ listener.newConnectionHandler = { newConnection in
 
 welcome()
 
+utilities.log("Initialization", "Loading mappings and device db into memory...")
 loadIntoMemory()
 
 listener.stateUpdateHandler = { state in
 	switch state {
 	case .ready:
-		utilities.log("[Initialization] API running at http://localhost:%d", Int(port.rawValue))
-		utilities.terminal.interactivity.runInteractiveLoop()
+		utilities.log("Initialization", "API running at http://localhost:%d", Int(port.rawValue))
+		if utilities.terminal.arguments.shouldBeInteractive { utilities.terminal.interactivity.runInteractiveLoop() }
 	case .failed(let err):
-		utilities.log("Listener failed: %@", String(describing: err))
+		utilities.log("Initialization", "Listener failed: \(String(describing: err))")
 		exit(1)
 	default:
 		break

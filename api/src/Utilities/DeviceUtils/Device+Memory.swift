@@ -19,20 +19,20 @@ extension Device {
 			for key in Array(mappings.keys) {
 				let mappingPath = NSString.path(withComponents: [utilities.terminal.arguments.dataPath ?? "", "mappings", "\(key)s.json"])
 				if !FileManager.default.fileExists(atPath: mappingPath) {
-					utilities.log("[Mappings] Mapping file \"%@\" is not present! Stopping server...", mappingPath)
+					utilities.log("Mappings", "Mapping file \(mappingPath) is not present! Stopping server...", )
 					return false
 				}
-				utilities.log("[Mappings] Loading the %@ mapping file from \"%@\"", key, mappingPath)
+				utilities.log("Mappings", "Loading the \(key) mapping file from \(mappingPath)")
 				do {
 					let raw = try utilities.json.loadJSON(at: mappingPath)
 					guard let parsed = raw as? [String: Any] else {
-						utilities.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server...", mappingPath)
+						utilities.log("Mappings", "Mapping file \(mappingPath) is not loadable! Stopping server...")
 						return false
 					}
 					mappings[key] = parsed
-					utilities.log("[Mappings] Parsed the %@ mapping file successfully.", key)
+					utilities.log("Mappings", "Parsed the \(key) mapping file successfully.")
 				} catch {
-					utilities.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server... (%@)", mappingPath, String(describing: error))
+					utilities.log("Mappings", "Mapping file \(mappingPath) is not loadable! Stopping server...")
 					return false
 				}
 			}
@@ -48,7 +48,7 @@ extension Device {
 					for str in valStr.split(separator: "/") { pathToJson.append(String(str)) }
 					let filePath = NSString.path(withComponents: pathToJson)
 					if !FileManager.default.fileExists(atPath: filePath) {
-						utilities.log("[Request] Unable to locate \"%@\"", filePath)
+						utilities.log("Request", "Unable to locate \(filePath)")
 						return false
 					}
 					do {
@@ -60,7 +60,7 @@ extension Device {
 						default: break
 						}
 					} catch {
-						utilities.log("[Request] Unable to parse the JSON at \"%@\" (%@)", filePath, String(describing: error))
+						utilities.log("Request", "Unable to parse the JSON at \(filePath) \(String(describing: error))")
 						return false
 					}
 				}

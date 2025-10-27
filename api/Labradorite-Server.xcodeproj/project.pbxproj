@@ -74,8 +74,8 @@
 		789CEE532EA49AA30013070D /* src */ = {
 			isa = PBXGroup;
 			children = (
-				789CEE752EA4A1110013070D /* Utilities */,
 				789CEE502EA49AA30013070D /* main.swift */,
+				789CEE752EA4A1110013070D /* Utilities */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -83,11 +83,11 @@
 		789CEE752EA4A1110013070D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				789CEE702EA4A1110013070D /* Utilities.swift */,
 				78C063FB2EAF168900685C33 /* DeviceUtils */,
 				78C063FC2EAF169E00685C33 /* JSONUtils */,
 				78C063FA2EAF146700685C33 /* HTTPUtils */,
 				78C063F62EAF146400685C33 /* TerminalUtils */,
-				789CEE702EA4A1110013070D /* Utilities.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

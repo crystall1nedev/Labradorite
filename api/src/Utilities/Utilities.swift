@@ -23,11 +23,10 @@ class Utilities {
 	
 	let logQueue = DispatchQueue(label: "dev.crystall1ne.Labradorite.loggingQueue")
 	
-	func log(_ format: String, _ args: CVarArg...) {
-		terminal.interactivity.termQueue.async {
+	func log(_ group: String, _ format: String, _ args: CVarArg...) {
+		terminal.queue.async { [self] in
 			let msg = String(format: format, arguments: args)
-			print(msg)
-			fflush(stdout)
+			terminal.logToRawTerminal(group, msg, prompt: terminal.interactivity.prompt, buffer: terminal.interactivity.buffer)
 		}
 	}
 	
