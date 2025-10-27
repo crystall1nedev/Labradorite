@@ -15,7 +15,7 @@ extension Utilities {
 		
 		func loadMappingsIntoMemory() -> Bool {
 			for key in Array(mappings.keys) {
-				let mappingPath = "mappings/\(key)s.json"
+				let mappingPath = NSString.path(withComponents: [parent.arguments.dataPath ?? "", "mappings", "\(key)s.json"])
 				if !FileManager.default.fileExists(atPath: mappingPath) {
 					parent.log("[Mappings] Mapping file \"%@\" is not present! Stopping server...", mappingPath)
 					return false
@@ -42,7 +42,9 @@ extension Utilities {
 				guard let mapping = mappings[dict] else { return false }
 				for (key, val) in mapping {
 					guard let valStr = val as? String else { return false }
-					let filePath = valStr
+					var pathToJson = [parent.arguments.dataPath ?? ""]
+					for str in valStr.split(separator: "/") { pathToJson.append(String(str)) }
+					let filePath = NSString.path(withComponents: pathToJson)
 					if !FileManager.default.fileExists(atPath: filePath) {
 						parent.log("[Request] Unable to locate \"%@\"", filePath)
 						return false
