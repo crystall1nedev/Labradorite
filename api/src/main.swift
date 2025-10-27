@@ -11,8 +11,9 @@ import Network
 let utilities = Utilities()
 
 func welcome() {
-	utilities.log("", "Labradorite Server", sync: true)
-	utilities.log("", "Made by Eva with <3 since 2025.", sync: true)
+	utilities.log("", "Labradorite Server", printPrompt: false)
+	utilities.log("", "Made by Eva with <3 since 2025.", printPrompt: false)
+	utilities.log("", "", printPrompt: false)
 }
 
 welcome()
@@ -21,15 +22,17 @@ utilities.terminal.arguments.parse()
 for issue in utilities.terminal.arguments.issues {
 	switch issue {
 	case .unknown(let arg, _):
-		utilities.log("Arguments", "Unknown argument: \(arg)", sync: true)
+		utilities.log("Arguments", "Unknown argument: \(arg)", printPrompt: false)
 	case .missingValue(let arg, _):
-		utilities.log("Arguments", "Missing value for \(arg)", sync: true)
+		utilities.log("Arguments", "Missing value for \(arg)", printPrompt: false)
 	default:
-		utilities.log("Arguments", "How did we get here?", sync: true)
+		utilities.log("Arguments", "How did we get here?", printPrompt: false)
 	}
 }
 
 if !utilities.terminal.arguments.issues.isEmpty && !utilities.terminal.arguments.safetyOff {
+	utilities.log("", "", printPrompt: false)
+	utilities.terminal.arguments.returnServerHelp()
 	exit(1)
 }
 
@@ -71,8 +74,6 @@ let badNestedParsing    = "Specs machine wasn't able to fine-tune. Try boardenin
 
 let listener = try NWListener(using: .tcp, on: port)
 
-var running = true
-
 listener.newConnectionHandler = { newConnection in
 	newConnection.start(queue: .global())
 	newConnection.receive(minimumIncompleteLength: 1, maximumLength: 64 * 1024) { (data, _, isComplete, error) in
@@ -99,11 +100,11 @@ listener.newConnectionHandler = { newConnection in
 		// Route handling
 		let lowerPath = req.path.lowercased()
 		if lowerPath.hasPrefix("/api/v0/identifier/") || lowerPath.hasPrefix("/api/identifier/") {
-			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers)
+			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
 		} else if lowerPath.hasPrefix("/api/v0/model/") || lowerPath.hasPrefix("/api/model/") {
-			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers)
+			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
 		} else if lowerPath.hasPrefix("/api/v0/boardconfig/") || lowerPath.hasPrefix("/api/boardconfig/") {
-			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers)
+			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
 		} else if lowerPath == "/help" {
 			utilities.http.handlers.handleHelp(connection: newConnection)
 		} else if lowerPath == "/cow" {
@@ -137,4 +138,5 @@ listener.stateUpdateHandler = { state in
 listener.start(queue: .global())
 
 dispatchMain()
+
 

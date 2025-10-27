@@ -19,7 +19,8 @@ class Terminal {
 	let queue     = DispatchQueue(label: "dev.crystall1ne.Labradorite.TerminalQueue")
 	let output    = FileHandle.standardOutput
 	let escape    = String(UnicodeScalar(0x1B))
-	var original  = termios()
+	
+	let prompt    = "> "
 	
 	let colorMap: [String: String] = [
 		"Initialization": "\u{1B}[31m",   // red
@@ -30,40 +31,13 @@ class Terminal {
 		"Console": "\u{1B}[36m",          // cyan
 	]
 	
-	@inline(__always) func writeToRawTerminal(_ string: String) {
-		if let data = string.data(using: .utf8) { output.write(data) }
-	}
-	
 	@inline(__always) func flushStdout() { fflush(stdout) }
 	
-	public func enableRawMode() throws {
-		guard tcgetattr(STDIN_FILENO, &original) == 0 else { throw NSError(domain: "termios", code: 1) }
-		var raw = original
-		raw.c_lflag &= ~(UInt(ECHO) | UInt(ICANON) | UInt(ISIG) | UInt(IEXTEN))
-		raw.c_iflag &= ~(UInt(IXON) | UInt(ICRNL) | UInt(INPCK) | UInt(ISTRIP) | UInt(BRKINT))
-		raw.c_oflag &= ~(UInt(OPOST))
-		raw.c_cc.6 = 1
-		raw.c_cc.5 = 0
-		guard tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == 0 else { throw NSError(domain: "termios", code: 2) }
-	}
-	
-	public func disableRawMode() {
-		_ = tcsetattr(STDIN_FILENO, TCSAFLUSH, &original)
-	}
-	
-	public func repaint(prompt: String, buffer: String) {
-		writeToRawTerminal(escape + "[0G" + escape + "[2K")
-		writeToRawTerminal(prompt + buffer)
-		flushStdout()
-	}
-	
-	public func logToRawTerminal(_ group: String, _ msg: String, prompt: String, buffer: String) {
-		let reset = "\u{1B}[0m"
-
+	public func logToRawTerminal(_ group: String, _ msg: String, _ shouldPrintPrompt: Bool) {
 		func formatGroup(_ group: String) -> String {
 			guard arguments.shouldUseColors else { return "[\(group)]" }
 			let color = colorMap[group] ?? "\u{1B}[31m"
-			return color + "[\(group)]" + reset
+			return color + "[\(group)]\u{1B}[0m"
 		}
 
 		var finalMsg: String
@@ -74,14 +48,11 @@ class Terminal {
 		} else {
 			finalMsg = msg
 		}
-
-		if !arguments.shouldBeInteractive {
-			print(finalMsg)
-			return
-		}
 		
-		writeToRawTerminal("\r" + escape + "[2K")
-		writeToRawTerminal(finalMsg + "\n")
+		if arguments.shouldBeInteractive { print("\u{001B}[2K\r", terminator: "") }
+		print(finalMsg)
+		if arguments.shouldBeInteractive && shouldPrintPrompt { print(prompt, terminator: "") }
+		flushStdout()
 	}
 
 }

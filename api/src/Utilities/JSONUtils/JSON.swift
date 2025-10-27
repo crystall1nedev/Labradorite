@@ -14,16 +14,16 @@ class JSON {
 		return try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
 	}
 	
-	func returnJSONData(from obj: Any) -> Data? {
+	func returnJSONData(from obj: Any, options: JSONSerialization.WritingOptions) -> Data? {
 		guard JSONSerialization.isValidJSONObject(obj) || obj is String || obj is NSNumber || obj is NSArray || obj is NSDictionary else {
 			if let string = obj as? String { return "\"\(string)\"".data(using: .utf8) }
 			return nil
 		}
 		
-		return try? JSONSerialization.data(withJSONObject: obj, options: [ .prettyPrinted, .fragmentsAllowed, .withoutEscapingSlashes, .sortedKeys ])
+		return try? JSONSerialization.data(withJSONObject: obj, options: options)
 	}
 	
-	func parseDeviceJSON(subkeys: [String], data: Any, headers: [String: String]) -> Data? {
+	func parseDeviceJSON(subkeys: [String], data: Any, headers: [String: String], options: JSONSerialization.WritingOptions) -> Data? {
 		utilities.log("Request", "Checking if we need to drill down further")
 		var current = data
 		
@@ -49,7 +49,7 @@ class JSON {
 					let headerValue = headers["Labradorite-FailOnSubkeys"] ?? ""
 					utilities.log("Request", "Non-dictionary item is not at end of requested keys.")
 					if headerValue != "true" {
-						utilities.log("Request", "Ignoring error due to lack of header.")
+						utilities.log("Request", "Ignoring error due to header.")
 					} else {
 						utilities.log("Request", "Header requested strict failure on subkeys.")
 						return nil
@@ -59,11 +59,11 @@ class JSON {
 			}
 		}
 		
-		utilities.log("Request", "Remarshalling...\n")
-		if let finalData = returnJSONData(from: current) {
+		utilities.log("Request", "Remarshalling...")
+		if let finalData = returnJSONData(from: current, options: options) {
 			return finalData
 		} else {
-			utilities.log("Request", "Unable to marshal the JSON\n")
+			utilities.log("Request", "Unable to marshal the JSON")
 			return nil
 		}
 	}
