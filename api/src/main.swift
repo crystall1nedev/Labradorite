@@ -8,6 +8,27 @@
 import Foundation
 import Network
 
+let utilities = Utilities()
+
+func welcome() {
+	print("Welcome to the Labradorite API server.")
+	print("Made by Eva with <3 since 2025.")
+	print("")
+}
+
+func loadIntoMemory() {
+	utilities.log("[Initialization] Loading mappings and device db into memory")
+	if !utilities.device.memory.loadMappingsIntoMemory() {
+		utilities.log("Failed to load mapping jsons into memory! Exiting.")
+		if !utilities.terminal.arguments.safetyOff { exit(1) }
+	}
+
+	if !utilities.device.memory.loadDeviceJSONsIntoMemory() {
+		utilities.log("Failed to load device jsons into memory! Exiting.")
+		if !utilities.terminal.arguments.safetyOff { exit(1) }
+	}
+}
+
 let port: NWEndpoint.Port = 8080
 
 var mappings: [String: [String: Any]] = [
@@ -33,9 +54,6 @@ let badResponse         = "Specs machine couldn't supply the proper response."
 let badNestedParsing    = "Specs machine wasn't able to fine-tune. Try boardening your search."
 
 let listener = try NWListener(using: .tcp, on: port)
-
-let utilities = Utilities()
-let handlers = Handlers(utilities: utilities)
 
 listener.newConnectionHandler = { newConnection in
 	newConnection.start(queue: .global())
@@ -69,11 +87,11 @@ listener.newConnectionHandler = { newConnection in
 		} else if lowerPath.hasPrefix("/api/v0/boardconfig/") || lowerPath.hasPrefix("/api/boardconfig/") {
 			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers)
 		} else if lowerPath == "/help" {
-			handlers.handleHelp(connection: newConnection)
+			utilities.http.handlers.handleHelp(connection: newConnection)
 		} else if lowerPath == "/cow" {
-			handlers.handleCow(connection: newConnection)
+			utilities.http.handlers.handleCow(connection: newConnection)
 		} else {
-			handlers.handleDefault(connection: newConnection)
+			utilities.http.handlers.handleDefault(connection: newConnection)
 		}
 
 		if isComplete || error != nil {
@@ -82,22 +100,15 @@ listener.newConnectionHandler = { newConnection in
 	}
 }
 
-utilities.log("[Initialization] Loading mappings and device db into memory")
-// Load mappings and devices before starting
-if !utilities.memory.loadMappingsIntoMemory() {
-	utilities.log("Failed to load mapping jsons into memory! Exiting.")
-	exit(1)
-}
+welcome()
 
-if !utilities.memory.loadDeviceJSONsIntoMemory() {
-	utilities.log("Failed to load device jsons into memory! Exiting.")
-	exit(1)
-}
+loadIntoMemory()
 
 listener.stateUpdateHandler = { state in
 	switch state {
 	case .ready:
 		utilities.log("[Initialization] API running at http://localhost:%d", Int(port.rawValue))
+		utilities.terminal.interactivity.runInteractiveLoop()
 	case .failed(let err):
 		utilities.log("Listener failed: %@", String(describing: err))
 		exit(1)

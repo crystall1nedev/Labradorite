@@ -2,13 +2,19 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:framework/Labradorite-Framework.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:api/Labradorite-Server.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:api/data/Labradorite-Data.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:framework/Labradorite-Framework.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:frontend/Labradorite-Frontend.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:.gitignore">
    </FileRef>
    <FileRef
       location = "group:Makefile">

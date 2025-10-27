@@ -9,21 +9,26 @@ import Foundation
 import Network
 
 class Utilities {
-	var json: JSON!
-	var http: HTTP!
-	var memory: Memory!
-	var device: Device!
+	var device:   Device!
+	var json:     JSON!
+	var http:     HTTP!
+	var terminal: Terminal!
 	
 	init() {
-		self.json = JSON(parent: self)
-		self.http = HTTP(parent: self)
-		self.memory = Memory(parent: self)
-		self.device = Device(parent: self)
+		self.device = Device()
+		self.json = JSON()
+		self.http = HTTP()
+		self.terminal = Terminal()
 	}
 	
+	let logQueue = DispatchQueue(label: "dev.crystall1ne.Labradorite.loggingQueue")
+	
 	func log(_ format: String, _ args: CVarArg...) {
-		let msg = String(format: format, arguments: args)
-		print(msg)
+		terminal.interactivity.termQueue.async {
+			let msg = String(format: format, arguments: args)
+			print(msg)
+			fflush(stdout)
+		}
 	}
 	
 	// Trim trailing slash and split path

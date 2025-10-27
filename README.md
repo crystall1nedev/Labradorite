@@ -45,14 +45,10 @@ Just send a `GET` request to one of the endpoints on `https://labradorite.crysta
 `/api/v0/model` - Return information on the passed model number (i.e. A3084).  
 `/api/v0/boardconfig` - Return information on the passed boardconfig (i.e. D94AP).  
 
-For running the API server on your own device, you'll need to have one of the following operating systems:
-- **macOS Big Sur 11.0** or later[^1]
-- **iOS or iPadOS 14.0** or later[^1][^2]
-- **tvOS 14.0** or later[^1][^2]
-<!--
-- Linux NEEDS TO BE TESTED
-- Windows NEEDS TO BE TESTED
--->
+For running the API server on your own device, you'll need to have one of the following operating systems[^1]:
+- **macOS Big Sur 11.0** or later
+- **iOS or iPadOS 14.0** or later[^2]
+- **tvOS 14.0** or later[^2]
 
 <!--
 ### Framework
@@ -97,5 +93,5 @@ same shit different day, TODO
 [^2]: Due to hardware and software restrictions, bridgeOS will not receive the SwiftUI-based application, and the framework will not feature API fallback functionality found on other platforms. 
 -->
 
-[^1]: Note that the source code should work down to **macOS Mojave 10.14** and **iOS 12**. Both are untested, and unsupported.
+[^1]: The source code is written with **zero** third-party frameworks and no OS-specific code, which means that it *should* work on Windows, Linux, and older versions of macOS, iOS, or tvOS. I don't personally test or use the API server on these operating systems, and future development may change this case.
 [^2]: Running the API server on iOS or tvOS requires a jailbreak.

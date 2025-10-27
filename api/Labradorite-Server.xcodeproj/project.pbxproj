@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		789CEE542EA49AA30013070D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE502EA49AA30013070D /* main.swift */; };
-		789CEE652EA49C8D0013070D /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE642EA49C8A0013070D /* Handlers.swift */; };
+		789CEE652EA49C8D0013070D /* HTTP+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE642EA49C8A0013070D /* HTTP+Handlers.swift */; };
 		789CEE762EA4A1110013070D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE702EA4A1110013070D /* Utilities.swift */; };
-		789CEE772EA4A1110013070D /* Utilities+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE712EA4A1110013070D /* Utilities+Device.swift */; };
-		789CEE782EA4A1110013070D /* Utilities+HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE722EA4A1110013070D /* Utilities+HTTP.swift */; };
-		789CEE792EA4A1110013070D /* Utilities+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE732EA4A1110013070D /* Utilities+JSON.swift */; };
-		789CEE7A2EA4A1110013070D /* Utilities+Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE742EA4A1110013070D /* Utilities+Memory.swift */; };
+		789CEE772EA4A1110013070D /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE712EA4A1110013070D /* Device.swift */; };
+		789CEE782EA4A1110013070D /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE722EA4A1110013070D /* HTTP.swift */; };
+		789CEE792EA4A1110013070D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE732EA4A1110013070D /* JSON.swift */; };
+		789CEE7A2EA4A1110013070D /* Device+Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CEE742EA4A1110013070D /* Device+Memory.swift */; };
+		78C063F72EAF146400685C33 /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C063F32EAF146400685C33 /* Terminal.swift */; };
+		78C063F82EAF146400685C33 /* Terminal+Arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C063F42EAF146400685C33 /* Terminal+Arguments.swift */; };
+		78C063F92EAF146400685C33 /* Terminal+Interactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C063F52EAF146400685C33 /* Terminal+Interactivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,13 +33,16 @@
 /* Begin PBXFileReference section */
 		789CEE3E2EA486230013070D /* labradorite-server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "labradorite-server"; sourceTree = BUILT_PRODUCTS_DIR; };
 		789CEE502EA49AA30013070D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		789CEE642EA49C8A0013070D /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
+		789CEE642EA49C8A0013070D /* HTTP+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTP+Handlers.swift"; sourceTree = "<group>"; };
 		789CEE702EA4A1110013070D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		789CEE712EA4A1110013070D /* Utilities+Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Device.swift"; sourceTree = "<group>"; };
-		789CEE722EA4A1110013070D /* Utilities+HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+HTTP.swift"; sourceTree = "<group>"; };
-		789CEE732EA4A1110013070D /* Utilities+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+JSON.swift"; sourceTree = "<group>"; };
-		789CEE742EA4A1110013070D /* Utilities+Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Memory.swift"; sourceTree = "<group>"; };
+		789CEE712EA4A1110013070D /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		789CEE722EA4A1110013070D /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		789CEE732EA4A1110013070D /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		789CEE742EA4A1110013070D /* Device+Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+Memory.swift"; sourceTree = "<group>"; };
 		789CEE972EA4A2C90013070D /* Codesigning.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Codesigning.xcconfig; path = ../Codesigning.xcconfig; sourceTree = SOURCE_ROOT; };
+		78C063F32EAF146400685C33 /* Terminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terminal.swift; sourceTree = "<group>"; };
+		78C063F42EAF146400685C33 /* Terminal+Arguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Terminal+Arguments.swift"; sourceTree = "<group>"; };
+		78C063F52EAF146400685C33 /* Terminal+Interactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Terminal+Interactivity.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +74,6 @@
 		789CEE532EA49AA30013070D /* src */ = {
 			isa = PBXGroup;
 			children = (
-				789CEE642EA49C8A0013070D /* Handlers.swift */,
 				789CEE752EA4A1110013070D /* Utilities */,
 				789CEE502EA49AA30013070D /* main.swift */,
 			);
@@ -78,13 +83,49 @@
 		789CEE752EA4A1110013070D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				78C063FB2EAF168900685C33 /* DeviceUtils */,
+				78C063FC2EAF169E00685C33 /* JSONUtils */,
+				78C063FA2EAF146700685C33 /* HTTPUtils */,
+				78C063F62EAF146400685C33 /* TerminalUtils */,
 				789CEE702EA4A1110013070D /* Utilities.swift */,
-				789CEE712EA4A1110013070D /* Utilities+Device.swift */,
-				789CEE722EA4A1110013070D /* Utilities+HTTP.swift */,
-				789CEE732EA4A1110013070D /* Utilities+JSON.swift */,
-				789CEE742EA4A1110013070D /* Utilities+Memory.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		78C063F62EAF146400685C33 /* TerminalUtils */ = {
+			isa = PBXGroup;
+			children = (
+				78C063F32EAF146400685C33 /* Terminal.swift */,
+				78C063F42EAF146400685C33 /* Terminal+Arguments.swift */,
+				78C063F52EAF146400685C33 /* Terminal+Interactivity.swift */,
+			);
+			path = TerminalUtils;
+			sourceTree = "<group>";
+		};
+		78C063FA2EAF146700685C33 /* HTTPUtils */ = {
+			isa = PBXGroup;
+			children = (
+				789CEE722EA4A1110013070D /* HTTP.swift */,
+				789CEE642EA49C8A0013070D /* HTTP+Handlers.swift */,
+			);
+			path = HTTPUtils;
+			sourceTree = "<group>";
+		};
+		78C063FB2EAF168900685C33 /* DeviceUtils */ = {
+			isa = PBXGroup;
+			children = (
+				789CEE712EA4A1110013070D /* Device.swift */,
+				789CEE742EA4A1110013070D /* Device+Memory.swift */,
+			);
+			path = DeviceUtils;
+			sourceTree = "<group>";
+		};
+		78C063FC2EAF169E00685C33 /* JSONUtils */ = {
+			isa = PBXGroup;
+			children = (
+				789CEE732EA4A1110013070D /* JSON.swift */,
+			);
+			path = JSONUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,12 +185,15 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 				789CEE762EA4A1110013070D /* Utilities.swift in Sources */,
-				789CEE772EA4A1110013070D /* Utilities+Device.swift in Sources */,
-				789CEE782EA4A1110013070D /* Utilities+HTTP.swift in Sources */,
-				789CEE792EA4A1110013070D /* Utilities+JSON.swift in Sources */,
-				789CEE7A2EA4A1110013070D /* Utilities+Memory.swift in Sources */,
+				789CEE772EA4A1110013070D /* Device.swift in Sources */,
+				78C063F72EAF146400685C33 /* Terminal.swift in Sources */,
+				78C063F82EAF146400685C33 /* Terminal+Arguments.swift in Sources */,
+				78C063F92EAF146400685C33 /* Terminal+Interactivity.swift in Sources */,
+				789CEE782EA4A1110013070D /* HTTP.swift in Sources */,
+				789CEE792EA4A1110013070D /* JSON.swift in Sources */,
+				789CEE7A2EA4A1110013070D /* Device+Memory.swift in Sources */,
 				789CEE542EA49AA30013070D /* main.swift in Sources */,
-				789CEE652EA49C8D0013070D /* Handlers.swift in Sources */,
+				789CEE652EA49C8D0013070D /* HTTP+Handlers.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */

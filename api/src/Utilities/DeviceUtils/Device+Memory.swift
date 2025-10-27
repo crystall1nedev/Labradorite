@@ -7,30 +7,32 @@
 
 import Foundation
 
-extension Utilities {
+extension Device {
 	class Memory {
-		var parent: Utilities
+		var parent: Device!
 		
-		init(parent: Utilities) { self.parent = parent }
+		init(parent: Device) {
+			self.parent = parent
+		}
 		
 		func loadMappingsIntoMemory() -> Bool {
 			for key in Array(mappings.keys) {
-				let mappingPath = NSString.path(withComponents: [parent.arguments.dataPath ?? "", "mappings", "\(key)s.json"])
+				let mappingPath = NSString.path(withComponents: [utilities.terminal.arguments.dataPath ?? "", "mappings", "\(key)s.json"])
 				if !FileManager.default.fileExists(atPath: mappingPath) {
-					parent.log("[Mappings] Mapping file \"%@\" is not present! Stopping server...", mappingPath)
+					utilities.log("[Mappings] Mapping file \"%@\" is not present! Stopping server...", mappingPath)
 					return false
 				}
-				parent.log("[Mappings] Loading the %@ mapping file from \"%@\"", key, mappingPath)
+				utilities.log("[Mappings] Loading the %@ mapping file from \"%@\"", key, mappingPath)
 				do {
-					let raw = try parent.json.loadJSON(at: mappingPath)
+					let raw = try utilities.json.loadJSON(at: mappingPath)
 					guard let parsed = raw as? [String: Any] else {
-						parent.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server...", mappingPath)
+						utilities.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server...", mappingPath)
 						return false
 					}
 					mappings[key] = parsed
-					parent.log("[Mappings] Parsed the %@ mapping file successfully.", key)
+					utilities.log("[Mappings] Parsed the %@ mapping file successfully.", key)
 				} catch {
-					parent.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server... (%@)", mappingPath, String(describing: error))
+					utilities.log("[Mappings] Mapping file \"%@\" is not loadable! Stopping server... (%@)", mappingPath, String(describing: error))
 					return false
 				}
 			}
@@ -42,15 +44,15 @@ extension Utilities {
 				guard let mapping = mappings[dict] else { return false }
 				for (key, val) in mapping {
 					guard let valStr = val as? String else { return false }
-					var pathToJson = [parent.arguments.dataPath ?? ""]
+					var pathToJson = [utilities.terminal.arguments.dataPath ?? ""]
 					for str in valStr.split(separator: "/") { pathToJson.append(String(str)) }
 					let filePath = NSString.path(withComponents: pathToJson)
 					if !FileManager.default.fileExists(atPath: filePath) {
-						parent.log("[Request] Unable to locate \"%@\"", filePath)
+						utilities.log("[Request] Unable to locate \"%@\"", filePath)
 						return false
 					}
 					do {
-						let data = try parent.json.loadJSON(at: filePath)
+						let data = try utilities.json.loadJSON(at: filePath)
 						switch dict {
 						case "boardconfig": boardconfigDevices[key] = data
 						case "model": modelDevices[key] = data
@@ -58,7 +60,7 @@ extension Utilities {
 						default: break
 						}
 					} catch {
-						parent.log("[Request] Unable to parse the JSON at \"%@\" (%@)", filePath, String(describing: error))
+						utilities.log("[Request] Unable to parse the JSON at \"%@\" (%@)", filePath, String(describing: error))
 						return false
 					}
 				}
