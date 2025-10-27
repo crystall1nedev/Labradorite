@@ -12,7 +12,7 @@ class Terminal {
 	var interactivity: Interactivity!
 	
 	init() {
-		self.arguments = Arguments(parent: self)
+		self.arguments = Arguments()
 		self.interactivity = Interactivity(parent: self)
 	}
 	
@@ -20,7 +20,6 @@ class Terminal {
 	let output    = FileHandle.standardOutput
 	let escape    = String(UnicodeScalar(0x1B))
 	var original  = termios()
-	var lastGroup = ""
 	
 	let colorMap: [String: String] = [
 		"Initialization": "\u{1B}[31m",   // red
@@ -59,36 +58,30 @@ class Terminal {
 	}
 	
 	public func logToRawTerminal(_ group: String, _ msg: String, prompt: String, buffer: String) {
-		func parseGroupAndMessage(_ input: String) -> (group: String?, message: String) {
-			if let close = input.firstIndex(of: "]"),
-			   input.hasPrefix("[") {
-				let group = String(input[input.index(after: input.startIndex)..<close])
-				let msgStart = input.index(after: close)
-				let message = input[msgStart...].trimmingCharacters(in: .whitespaces)
-				return (group, message)
-			}
-			return (nil, input)
-		}
-		
 		let reset = "\u{1B}[0m"
-		
-		var finalMsg = ""
-		var coloredGroup = ""
-		if group != "" {
-			if arguments.shouldUseColors {
-				let color = colorMap[group] ?? "\u{1B}[31m"
-				coloredGroup = color + "[\(group)]" + reset
-			}
+
+		func formatGroup(_ group: String) -> String {
+			guard arguments.shouldUseColors else { return "[\(group)]" }
+			let color = colorMap[group] ?? "\u{1B}[31m"
+			return color + "[\(group)]" + reset
+		}
+
+		var finalMsg: String
+		if !group.isEmpty {
 			let padding = max(1, 20 - (group.count + 2))
 			let padStr = String(repeating: " ", count: padding)
-			finalMsg = (arguments.shouldUseColors ? coloredGroup : "[\(group)]") + padStr + msg
+			finalMsg = formatGroup(group) + padStr + msg
 		} else {
 			finalMsg = msg
 		}
+
+		if !arguments.shouldBeInteractive {
+			print(finalMsg)
+			return
+		}
 		
 		writeToRawTerminal("\r" + escape + "[2K")
-		if lastGroup != group { writeToRawTerminal("\n"); lastGroup = group }
 		writeToRawTerminal(finalMsg + "\n")
-		if arguments.shouldBeInteractive { repaint(prompt: prompt, buffer: buffer) }
 	}
+
 }

@@ -8,54 +8,51 @@
 import Foundation
 
 extension Terminal {
-	class Arguments {
-		var parent: Terminal!
-		
+	enum ArgumentIssue {
+		case unknown(String, Int32)
+		case helpShown(String, Int32)
+		case missingValue(String, Int32)
+	}
+
+	final class Arguments {
 		private let arguments = CommandLine.arguments
 		private var index = 1
-		public var dataPath: String? = nil
-		public var safetyOff: Bool = false
-		public var hasHitUnknownArgument: Bool = false
-		public var shouldUseColors: Bool = true
-		public var shouldBeInteractive: Bool = false
 		
-		init(parent: Terminal) {
-			self.parent = parent
+		public var dataPath: String?
+		public var safetyOff = false
+		public var shouldUseColors = true
+		public var shouldBeInteractive = false
+		public private(set) var issues: [ArgumentIssue] = []
+		
+		init() {}
+		
+		func parse() {
 			while index < arguments.count {
-				let argument = arguments[index]
-				switch argument {
-				case "--disable-safety": safetyOff = true
-				case "--data", "-d": dataPath = parseMultiPartStringArgument() ?? nil
-				case "--help", "-h": returnServerHelp(); exit(0)
-				case "--no-colors": shouldUseColors = false
-				case "--interactive": shouldBeInteractive = true
+				let arg = arguments[index]
+				switch arg {
+				case "--disable-safety":
+					safetyOff = true
+				case "--data", "-d":
+					dataPath = parseMultiPartStringArgument()
+					if dataPath == nil { issues.append(.missingValue(arg, 1)) }
+				case "--help", "-h":
+					returnServerHelp()
+					issues.append(.helpShown(arg, 0))
+				case "--no-colors":
+					shouldUseColors = false
+				case "--interactive":
+					shouldBeInteractive = true
 				default:
-					utilities.log("Arguments", "Unknown argument");
-					hasHitUnknownArgument = true
+					issues.append(.unknown(arg, 1))
 				}
-				
 				index += 1
 			}
-			
-			if hasHitUnknownArgument && !safetyOff { exit(1) }
 		}
 		
 		func parseMultiPartStringArgument() -> String? {
 			let secondIndex = index + 1
-			guard secondIndex < arguments.count else {
-				utilities.log("Arguments", "Missing value for " + arguments[index] + ".")
-				exit(1)
-			}
-			
-			guard !arguments[secondIndex].hasPrefix("-") else {
-				utilities.log("Arguments", "Missing value for " + arguments[index] + ".")
-				exit(1)
-			}
-			
-			guard FileManager.default.fileExists(atPath: arguments[secondIndex], isDirectory: nil) else {
-				utilities.log("Arguments", "Value for " + arguments[index] + " is invalid.")
-				exit(1)
-			}
+			guard secondIndex < arguments.count, !arguments[secondIndex].hasPrefix("-") else { return nil }
+			guard FileManager.default.fileExists(atPath: arguments[secondIndex], isDirectory: nil) else { return nil }
 			
 			index += 1
 			return arguments[secondIndex].hasSuffix("/") ? arguments[secondIndex] : (arguments[secondIndex] + "/")

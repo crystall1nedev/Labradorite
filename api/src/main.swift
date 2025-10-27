@@ -11,9 +11,26 @@ import Network
 let utilities = Utilities()
 
 func welcome() {
-	utilities.log("", "Labradorite Server")
-	utilities.log("", "Made by Eva with <3 since 2025.")
-	utilities.log("", "")
+	utilities.log("", "Labradorite Server", sync: true)
+	utilities.log("", "Made by Eva with <3 since 2025.", sync: true)
+}
+
+welcome()
+utilities.terminal.arguments.parse()
+
+for issue in utilities.terminal.arguments.issues {
+	switch issue {
+	case .unknown(let arg, _):
+		utilities.log("Arguments", "Unknown argument: \(arg)", sync: true)
+	case .missingValue(let arg, _):
+		utilities.log("Arguments", "Missing value for \(arg)", sync: true)
+	default:
+		utilities.log("Arguments", "How did we get here?", sync: true)
+	}
+}
+
+if !utilities.terminal.arguments.issues.isEmpty && !utilities.terminal.arguments.safetyOff {
+	exit(1)
 }
 
 func loadIntoMemory() {
@@ -100,8 +117,6 @@ listener.newConnectionHandler = { newConnection in
 		}
 	}
 }
-
-welcome()
 
 utilities.log("Initialization", "Loading mappings and device db into memory...")
 loadIntoMemory()

@@ -85,7 +85,7 @@ class Device {
 			return
 		}
 		
-		utilities.log("Request", "Found our file at \(filePath), now parsing it.", )
+		utilities.log("Request", "Found our file at \(filePath), now parsing it.")
 		do {
 			let loaded = try utilities.json.loadJSON(at: filePath)
 			if let response = utilities.json.parseDeviceJSON(subkeys: subkeys, data: loaded, headers: headers) {
@@ -97,7 +97,7 @@ class Device {
 				return
 			}
 		} catch {
-			utilities.log("Request", "Unable to parse the JSON at \(filePath)" )
+			utilities.log("Request", "Unable to parse the JSON at \(filePath)")
 			let body = Data(badDataRead.utf8)
 			utilities.http.respondHeadersAndBody(connection: connection, status: 500, body: body)
 			return

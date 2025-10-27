@@ -74,13 +74,14 @@ extension Terminal {
 		
 		public func parseTerminalCommands(_ buffer: String) {
 			switch buffer {
+			//case _ where buffer.starts(with: "test"):
+			//	utilities.log("Console", "Running test")
+			//	returnTestResults(buffer)
 			case "reload":
-				utilities.log("Initialization", "Reloading mappings and devices in memory...")
+				utilities.log("Console", "Reloading mappings and devices in memory...")
 				loadIntoMemory()
-			case "exit":
-				running = false
-			case "help":
-				returnServerCommandsHelp()
+			case "exit": running = false
+			case "help": returnServerCommandsHelp()
 			default:
 				parent.writeToRawTerminal("\r" + parent.escape + "[2K")
 				utilities.log("Console", "Unknown command: \(buffer). Type \"help\" for a list.")
@@ -93,5 +94,12 @@ extension Terminal {
 			utilities.log("Console", "exit   - Shuts down Labradorite Server.")
 			utilities.log("Console", "test   - implement test command wen")
 		}
+		
+		/*public func returnTestResults(_ buffer: String) {
+			utilities.log("Console", "Not implemented yet :(")
+			var command = [ ] as [String]
+			for str in buffer.split(separator: " ") { command.append(String(str)) }
+			utilities.log("Console", "Command: \(command)")
+		}*/
 	}
 }
