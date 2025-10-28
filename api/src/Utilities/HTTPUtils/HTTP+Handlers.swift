@@ -7,6 +7,9 @@
 
 import Foundation
 import Network
+#if canImport(UIKit)
+import UIKit
+#endif
 
 extension HTTP {
 	class Handlers {
@@ -50,6 +53,25 @@ extension HTTP {
 		func handleDefault(connection: NWConnection) {
 			let body = Data(badEndpoint.utf8)
 			parent.respondHeadersAndBody(connection: connection, status: 400, body: body)
+		}
+		
+		func handleHost(connection: NWConnection) {
+			#if os(Windows)
+				let host = "Windows"
+			#elseif os(Linux)
+				let host = "Linux"
+			#elseif os(iOS) || os(tvOS)
+				let host = UIDevice.current.systemName
+			#elseif os(macOS)
+				let host = "macOS"
+			#endif
+			let body = Data("""
+				{
+					"server_version": 1.0,
+					"server_host": "\(host)"
+				}
+				""".utf8)
+			parent.respondHeadersAndBody(connection: connection, status: 200, body: body)
 		}
 	}
 }

@@ -9,6 +9,7 @@ import Foundation
 import Network
 
 let utilities = Utilities()
+utilities.terminal.arguments.parse()
 
 func welcome() {
 	utilities.log("", "Labradorite Server", printPrompt: false)
@@ -17,7 +18,6 @@ func welcome() {
 }
 
 welcome()
-utilities.terminal.arguments.parse()
 
 for issue in utilities.terminal.arguments.issues {
 	switch issue {
@@ -25,8 +25,11 @@ for issue in utilities.terminal.arguments.issues {
 		utilities.log("Arguments", "Unknown argument: \(arg)", printPrompt: false)
 	case .missingValue(let arg, _):
 		utilities.log("Arguments", "Missing value for \(arg)", printPrompt: false)
-	default:
-		utilities.log("Arguments", "How did we get here?", printPrompt: false)
+	case .missingPath(let arg, _):
+		utilities.log("Arguments", "Missing path: \(arg)", printPrompt: false)
+	case .helpShown:
+		utilities.terminal.arguments.returnServerHelp()
+		exit(0)
 	}
 }
 
@@ -99,17 +102,18 @@ listener.newConnectionHandler = { newConnection in
 
 		// Route handling
 		let lowerPath = req.path.lowercased()
-		if lowerPath.hasPrefix("/api/v0/identifier/") || lowerPath.hasPrefix("/api/identifier/") {
+		
+		switch lowerPath {
+		case _ where lowerPath.hasPrefix("/api/v0") || lowerPath.hasPrefix("/api"):
 			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
-		} else if lowerPath.hasPrefix("/api/v0/model/") || lowerPath.hasPrefix("/api/model/") {
-			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
-		} else if lowerPath.hasPrefix("/api/v0/boardconfig/") || lowerPath.hasPrefix("/api/boardconfig/") {
-			utilities.device.serveDevice(connection: newConnection, method: req.method, path: req.path, headers: req.headers, console: false)
-		} else if lowerPath == "/help" {
+		case "/help":
 			utilities.http.handlers.handleHelp(connection: newConnection)
-		} else if lowerPath == "/cow" {
-			utilities.http.handlers.handleCow(connection: newConnection)
-		} else {
+		case "/cow":
+			utilities.http.handlers.handleHelp(connection: newConnection)
+		case "/host":
+			if utilities.terminal.arguments.shouldEnableHostInfo { utilities.http.handlers.handleHost(connection: newConnection)
+			} else { utilities.http.handlers.handleDefault(connection: newConnection)}
+		default:
 			utilities.http.handlers.handleDefault(connection: newConnection)
 		}
 

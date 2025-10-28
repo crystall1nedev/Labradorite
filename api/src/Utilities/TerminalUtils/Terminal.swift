@@ -50,7 +50,7 @@ class Terminal {
 		}
 		
 		if arguments.shouldBeInteractive { print("\u{001B}[2K\r", terminator: "") }
-		print(finalMsg)
+		if arguments.shouldLogToConsole { print(finalMsg) }
 		if arguments.shouldBeInteractive && shouldPrintPrompt { print(prompt, terminator: "") }
 		flushStdout()
 	}
