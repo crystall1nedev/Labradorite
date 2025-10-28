@@ -42,7 +42,20 @@ class HTTP {
 		}
 	}
 	
-	func clientIP(from connection: NWConnection) -> String {
+	func clientIP(from connection: NWConnection, request: HTTP.ParsedRequest?) -> String {
+		if let request {
+			if let xForwardedFor = request.headers["X-Forwarded-For"] {
+				let parts = xForwardedFor.split(separator: ",")
+				if let firstIP = parts.first {
+					return firstIP.trimmingCharacters(in: .whitespaces)
+				}
+			}
+			
+			if let xRealIP = request.headers["X-Real-IP"] {
+				return xRealIP
+			}
+		}
+		
 		if let endpoint = connection.currentPath?.remoteEndpoint {
 			switch endpoint {
 			case .hostPort(let host, let port):
@@ -51,6 +64,7 @@ class HTTP {
 				return "\(endpoint)"
 			}
 		}
+		
 		return "unknown"
 	}
 	

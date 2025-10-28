@@ -91,7 +91,7 @@ listener.newConnectionHandler = { newConnection in
 			return
 		}
 
-		utilities.log("Request", "\(req.method) \(req.path) from \(utilities.http.clientIP(from: newConnection))")
+		utilities.log("Request", "\(req.method) \(req.path) from \(utilities.http.clientIP(from: newConnection, request: req))")
 
 		// Only GET supported
 		if req.method != "GET" {
